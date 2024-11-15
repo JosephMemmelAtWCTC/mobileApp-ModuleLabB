@@ -4,7 +4,9 @@
              x:Class="Module5LabBCharacterPersonalityQuiz.MainPage">
 
     <Grid RowDefinitions="*,Auto">
-        <ScrollView Grid.Row="0">
+        <ScrollView
+            x:Name="SwipeArea"
+            Grid.Row="0">
             <VerticalStackLayout
                 Padding="30,0"
                 Spacing="25">
@@ -29,14 +31,15 @@
                     SemanticProperties.Description="" />
                 <Label
                     x:Name="QuestionDescription"
-                    Text=""
+                    Text="Click or swipe twords the description buttons to select"
                     Style="{StaticResource SubHeadline}"
                     SemanticProperties.HeadingLevel="Level2"
                     SemanticProperties.Description="" />
 
                 <!-- Options Layout -->
-                <Grid ColumnDefinitions="*,*"
-                      Margin="0,20,0,0">
+                <Grid
+                    ColumnDefinitions="*,*"
+                    Margin="0,20,0,0">
                     <Button
                         x:Name="OptionLeft"
                         Clicked="OnLeftSwipe"
@@ -44,7 +47,6 @@
                         SemanticProperties.Hint=""
                         Grid.Column="0"
                         HorizontalOptions="StartAndExpand" />
-                        
                     <Button
                         x:Name="OptionRight"
                         Clicked="OnRightSwipe"
@@ -55,6 +57,7 @@
                 </Grid>
 
             </VerticalStackLayout>
+            
         </ScrollView>
 
         <!-- Reset Button at Bottom -->

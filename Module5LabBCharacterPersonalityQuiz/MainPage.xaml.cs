@@ -56,26 +56,51 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
 		moveNext(false);
+		SwipeGestureRecognizer swipeGesture = new SwipeGestureRecognizer { Direction = SwipeDirection.Left | SwipeDirection.Right };
+		swipeGesture.Swiped += OnSwiped;
+
+		SwipeArea.GestureRecognizers.Add(swipeGesture);
 	}
 
 	public void OnLeftSwipe(object sender, EventArgs e)
 	{
-		moveNext(true);
+		if(this.questionIndex < questions.Length){
+			moveNext(true);
+		}
 	}
 
 	public void OnRightSwipe(object sender, EventArgs e)
 	{
-		moveNext(false);
+		if(this.questionIndex < questions.Length){
+			moveNext(false);
+		}
+	}
 
+	void OnSwiped(object sender, SwipedEventArgs e)
+	{
+		Debug.WriteLine("!!!!!!_ONSWIPED");
+		switch (e.Direction)
+		{
+			case SwipeDirection.Left:
+				OnLeftSwipe(sender, e);
+				break;
+			case SwipeDirection.Right:
+				OnRightSwipe(sender, e);
+				break;
+			case SwipeDirection.Up:
+				// Handle the swipe
+				break;
+			case SwipeDirection.Down:
+				// Handle the swipe
+				break;
+		}
 	}
 
 	private void moveNext(bool left){
 		Debug.WriteLine("MoveNEXT = "+left);
-		// var addingAlls = left? questions[questionIndex].Option1PersonalitySet : questions[questionIndex].Option2PersonalitySet;
 
 		if(questionIndex >= 0){
 			foreach (var personality in left? questions[questionIndex].Option1PersonalitySet : questions[questionIndex].Option2PersonalitySet)
-			// foreach (var personality in addingAlls)
 			{
 				personalityTracking[personality.Key] += personality.Value;
 			}
@@ -88,19 +113,19 @@ public partial class MainPage : ContentPage
 			QuestionImg.Source = questions[questionIndex].DisplayImage;
 			OptionLeft.Text = questions[questionIndex].Option1Msg;
 			OptionRight.Text = questions[questionIndex].Option2Msg;
+			Debug.WriteLine("!!!!!!"+questions[questionIndex].QuestionTitle);
 		}else{
 			results();
 		}
 
-		Debug.WriteLine("!!!!!!"+questions[questionIndex].QuestionTitle);
 	}
 
 	private void results(){
 		Result[] results = [
 			// string displayImage, string Title, string Description, Personality[] personalityOrder
 			new Result("we_are_legion.jpg", "(One of the many copies of Bob)", "From the Bobverse series", new Personality[]{ Personality.NobileGoals, Personality.Transhumanism, Personality.Expansion}),
-			new Result("star_wars.jpg", "One of the Jedi I guess", "Star wars", new Personality[]{ Personality.NobileGoals, Personality.Expansion, Personality.Transhumanism}),
-			new Result("mind_machines.jpg", "Mike Cohen,", "Mind Machines (Humans++ series)", new Personality[]{ Personality.Transhumanism, Personality.NobileGoals, Personality.Expansion}),
+			new Result("attack_surface.jpg", "Masha Maximow", "Attack Surface", new Personality[]{ Personality.NobileGoals, Personality.Expansion, Personality.Transhumanism}),
+			new Result("mind_machines.jpg", "Mike Cohen", "Mind Machines (Humans++ series)", new Personality[]{ Personality.Transhumanism, Personality.NobileGoals, Personality.Expansion}),
 			new Result("house_of_suns.jpg", "The Spirit of the Air / Hesperus", "House of Suns", new Personality[]{ Personality.Transhumanism, Personality.Expansion, Personality.NobileGoals}),
 			new Result("the_hitchikers_guide_to_the_galaxy.jpg","Ford Perfect","The Hitchikers Guide to the Galaxy", new Personality[]{ Personality.Expansion, Personality.NobileGoals, Personality.Transhumanism}),
 			new Result("house_of_suns.jpg", "The Gentian Line (Orignally Abigail Gentian)", "House of Suns", new Personality[]{ Personality.Expansion, Personality.Transhumanism, Personality.NobileGoals}),
@@ -160,6 +185,8 @@ public partial class MainPage : ContentPage
 		QuestionTitle.Text = "";
 		OptionLeft.IsVisible = true;
 		OptionRight.IsVisible = true;
+		QuestionDescription.Text = "";
+
 		moveNext(false);
 	}
 }
