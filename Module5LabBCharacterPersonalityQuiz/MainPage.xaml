@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Module5LabBCharacterPersonalityQuiz.MainPage">
+
+    <Grid RowDefinitions="*,Auto">
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout
+                Padding="30,0"
+                Spacing="25">
+
+                <Label
+                    Text="Sci-fi Character Personality Quiz"
+                    Style="{StaticResource Headline}"
+                    SemanticProperties.HeadingLevel="Level1" />
+
+                <Image
+                    x:Name="QuestionImg"
+                    Source="dotnet_bot.png"
+                    HeightRequest="185"
+                    Aspect="AspectFit"
+                    SemanticProperties.Description="" />
+
+                <Label
+                    x:Name="QuestionTitle"
+                    Text="Title"
+                    Style="{StaticResource SubHeadline}"
+                    SemanticProperties.HeadingLevel="Level2"
+                    SemanticProperties.Description="" />
+                <Label
+                    x:Name="QuestionDescription"
+                    Text=""
+                    Style="{StaticResource SubHeadline}"
+                    SemanticProperties.HeadingLevel="Level2"
+                    SemanticProperties.Description="" />
+
+                <!-- Options Layout -->
+                <Grid ColumnDefinitions="*,*"
+                      Margin="0,20,0,0">
+                    <Button
+                        x:Name="OptionLeft"
+                        Clicked="OnLeftSwipe"
+                        Text="LEFT" 
+                        SemanticProperties.Hint=""
+                        Grid.Column="0"
+                        HorizontalOptions="StartAndExpand" />
+                        
+                    <Button
+                        x:Name="OptionRight"
+                        Clicked="OnRightSwipe"
+                        Text="RIGHT" 
+                        SemanticProperties.Hint=""
+                        Grid.Column="1"
+                        HorizontalOptions="EndAndExpand" />
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Reset Button at Bottom -->
+        <Button
+            x:Name="Reset"
+            Text="Reset" 
+            SemanticProperties.Hint=""
+            Clicked="OnResetQuiz"
+            Grid.Row="1"
+            HorizontalOptions="Fill"
+            VerticalOptions="End" />
+    </Grid>
+
+</ContentPage>
