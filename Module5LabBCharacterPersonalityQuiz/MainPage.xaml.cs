@@ -98,7 +98,7 @@ public partial class MainPage : ContentPage
 	private void results(){
 		Result[] results = [
 			// string displayImage, string Title, string Description, Personality[] personalityOrder
-			new Result("we_are_legion.jpg", "Bob", "From the Bobverse series", new Personality[]{ Personality.NobileGoals, Personality.Transhumanism, Personality.Expansion}),
+			new Result("we_are_legion.jpg", "(One of the many copies of Bob)", "From the Bobverse series", new Personality[]{ Personality.NobileGoals, Personality.Transhumanism, Personality.Expansion}),
 			new Result("star_wars.jpg", "One of the Jedi I guess", "Star wars", new Personality[]{ Personality.NobileGoals, Personality.Expansion, Personality.Transhumanism}),
 			new Result("mind_machines.jpg", "Mike Cohen,", "Mind Machines (Humans++ series)", new Personality[]{ Personality.Transhumanism, Personality.NobileGoals, Personality.Expansion}),
 			new Result("house_of_suns.jpg", "The Spirit of the Air / Hesperus", "House of Suns", new Personality[]{ Personality.Transhumanism, Personality.Expansion, Personality.NobileGoals}),
@@ -109,17 +109,22 @@ public partial class MainPage : ContentPage
 
 		Personality[] checkPersonalityOrder = new Personality[personalityTracking.Count()];
 
-		SortedDictionary<Personality, int> orderedPersonalityTracking = new SortedDictionary<Personality, int>(personalityTracking);
+		// SortedDictionary<Personality, int> orderedPersonalityTracking = new SortedDictionary<Personality, int>(personalityTracking);
 		
+		// Sorting `personalityTracking` by values in descending order and storing it in a new dictionary
+		var orderedPersonalityTracking = personalityTracking.OrderByDescending(p => p.Value).ToDictionary(p => p.Key, p => p.Value);
+
 		int orderPlaceIndex = 0;
 		foreach(var personalityTracked in orderedPersonalityTracking){
 			checkPersonalityOrder[orderPlaceIndex++] = personalityTracked.Key;
 		}
+		Debug.WriteLine("Check Against");
 
 		Debug.WriteLine(checkPersonalityOrder[0]);
 		Debug.WriteLine(checkPersonalityOrder[1]);
 		Debug.WriteLine(checkPersonalityOrder[2]);
 
+		Debug.WriteLine("Results");
 		foreach(var result in results){
 		Debug.WriteLine("!!!!!!"+result.Title);
 		Debug.WriteLine(result.PersonalityOrder[0]);
@@ -143,7 +148,7 @@ public partial class MainPage : ContentPage
 	}
 
 	public void OnResetQuiz(object sender, EventArgs e){
-		QuestionTitle.Text = this.personalityTracking[Personality.Transhumanism].ToString()+"__"+this.personalityTracking[Personality.NobileGoals].ToString()+"__"+this.personalityTracking[Personality.Expansion].ToString();
+		Debug.WriteLine(this.personalityTracking[Personality.Transhumanism].ToString()+"__"+this.personalityTracking[Personality.NobileGoals].ToString()+"__"+this.personalityTracking[Personality.Expansion].ToString());
 
 		this.questionIndex = -1;
 		this.personalityTracking = new Dictionary<Personality, int>{
