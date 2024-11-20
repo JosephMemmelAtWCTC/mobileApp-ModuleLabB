@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Module5LabBCharacterPersonalityQuiz.Models;
 
 namespace Module5LabBCharacterPersonalityQuiz;
 
@@ -22,56 +23,80 @@ public partial class MainPage : ContentPage
 	};
 
 
-	Question[] questions = [
-		// displayImage questionTitle option1Msg option2Msg questionPersonality option1Pts option2Pts
-		new Question("hourglass.jpg", "Longivitiy", "For expanded longivity", "Against expanded longivity",
-			new Dictionary<Personality, int>{
-				{ Personality.Transhumanism, 5},
-				{ Personality.NobileGoals, 1},
-			},
-			new Dictionary<Personality, int>{
-				{ Personality.Transhumanism, -5},
-			}
-		),
-		new Question("solar_system_map.jpg", "Travel Choice", "Off Earth", "On Earth",
-			new Dictionary<Personality, int>{
-				{ Personality.Expansion, 4},
-			},
-			new Dictionary<Personality, int>{
-				{ Personality.Expansion, -1},
-			}
-		),
-		new Question("humanitarian.jpg", "Out to Help", "Activally Pursuing", "Doing my Own Thing",
-			new Dictionary<Personality, int>{
-				{ Personality.NobileGoals, 5},
-			},
-			new Dictionary<Personality, int>{
-				{ Personality.NobileGoals, 0},
-			}
-		),
-	];
-	
+	List<Question> questions;
+			
 
 	public MainPage()
 	{
 		InitializeComponent();
-		moveNext(false);
-		SwipeGestureRecognizer swipeGesture = new SwipeGestureRecognizer { Direction = SwipeDirection.Left | SwipeDirection.Right };
-		swipeGesture.Swiped += OnSwiped;
+		Debug.WriteLine("_______Personalties_______");
+		Debug.WriteLine("Expansion: "+(int)Personality.Expansion);
+		Debug.WriteLine("NobileGoals: "+(int)Personality.NobileGoals);
+		Debug.WriteLine("Transhumanism: "+(int)Personality.Transhumanism);
+		Debug.WriteLine("__________________________");
 
-		SwipeArea.GestureRecognizers.Add(swipeGesture);
+        List<Question> addIfNotAlreadyInDbQuestions = new List<Question>();
+
+		addIfNotAlreadyInDbQuestions.Add(new Question("hourglass.jpg", "Longivitiy", "For expanded longivity", "Against expanded longivity",
+			new Dictionary<Personality, int>{
+				{ Personality.Transhumanism, 1},
+				{ Personality.NobileGoals, 5},
+			},
+			new Dictionary<Personality, int>{
+				{ Personality.Transhumanism, -2},
+				{ Personality.NobileGoals, -3},
+			}
+		));
+		addIfNotAlreadyInDbQuestions.Add(new Question("hourglass.jpg", "Want to live...", ">150 years", "<150 years",
+			new Dictionary<Personality, int>{
+				{ Personality.Transhumanism, 5},
+				{ Personality.Expansion, 1},
+			},
+			new Dictionary<Personality, int>{
+				{ Personality.Expansion, -1},
+			}
+		));
+		addIfNotAlreadyInDbQuestions.Add(new Question("solar_system_map.jpg", "Travel Choice", "Off Earth", "On Earth",
+			new Dictionary<Personality, int>{
+				{ Personality.Expansion, 5},
+			},
+			new Dictionary<Personality, int>{
+				{ Personality.Expansion, -1},
+			}
+		));
+		addIfNotAlreadyInDbQuestions.Add(new Question("humanitarian.jpg", "Out to Help", "Activally Pursuing", "Doing my Own Thing",
+			new Dictionary<Personality, int>{
+				{ Personality.NobileGoals, 4},
+			},
+			new Dictionary<Personality, int>{
+				{ Personality.NobileGoals, 0},
+			}
+		));
+
+		// int i=0;
+        foreach (Question addIfNotAlreadyInDbQuestion in addIfNotAlreadyInDbQuestions){
+			App.QuestionRepo.AddNewDbQuestion(addIfNotAlreadyInDbQuestion);
+        }
+
+		questions = App.QuestionRepo.GetAllQuestions();
+
+		// moveNext(false);
+		// SwipeGestureRecognizer swipeGesture = new SwipeGestureRecognizer { Direction = SwipeDirection.Left | SwipeDirection.Right };
+		// swipeGesture.Swiped += OnSwiped;
+
+		// SwipeArea.GestureRecognizers.Add(swipeGesture);
 	}
 
 	public void OnLeftSwipe(object sender, EventArgs e)
 	{
-		if(this.questionIndex < questions.Length){
+		if(this.questionIndex < questions.Count()){
 			moveNext(true);
 		}
 	}
 
 	public void OnRightSwipe(object sender, EventArgs e)
 	{
-		if(this.questionIndex < questions.Length){
+		if(this.questionIndex < questions.Count()){
 			moveNext(false);
 		}
 	}
@@ -108,7 +133,7 @@ public partial class MainPage : ContentPage
 		
 		questionIndex++;
 
-		if(questionIndex < questions.Length){
+		if(questionIndex < questions.Count()){
 			QuestionTitle.Text = questions[questionIndex].QuestionTitle;
 			QuestionImg.Source = questions[questionIndex].DisplayImage;
 			OptionLeft.Text = questions[questionIndex].Option1Msg;

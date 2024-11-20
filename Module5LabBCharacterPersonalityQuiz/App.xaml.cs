@@ -1,11 +1,21 @@
 ﻿namespace Module5LabBCharacterPersonalityQuiz;
 
+using Module5LabBCharacterPersonalityQuiz.Models;
+
 public partial class App : Application
 {
-	public App()
+
+	public static QuestionRepository QuestionRepo { get; set; }
+
+	public App(QuestionRepository questionRepo)
 	{
 		InitializeComponent();
 
 		MainPage = new AppShell();
+
+		QuestionRepo = questionRepo;
+
 	}
+	
+
 }
