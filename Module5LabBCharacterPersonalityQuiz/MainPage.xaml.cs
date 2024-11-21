@@ -30,26 +30,26 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
 		Debug.WriteLine("_______Personalties_______");
-		Debug.WriteLine("Expansion: "+(int)Personality.Expansion);
-		Debug.WriteLine("NobileGoals: "+(int)Personality.NobileGoals);
-		Debug.WriteLine("Transhumanism: "+(int)Personality.Transhumanism);
+		Debug.WriteLine("Expansion Enum #: "+(int)Personality.Expansion);
+		Debug.WriteLine("NobileGoals Enum #: "+(int)Personality.NobileGoals);
+		Debug.WriteLine("Transhumanism Enum #: "+(int)Personality.Transhumanism);
 		Debug.WriteLine("__________________________");
 
         List<Question> addIfNotAlreadyInDbQuestions = new List<Question>();
 
 		addIfNotAlreadyInDbQuestions.Add(new Question("hourglass.jpg", "Longivitiy", "For expanded longivity", "Against expanded longivity",
 			new Dictionary<Personality, int>{
-				{ Personality.Transhumanism, 1},
-				{ Personality.NobileGoals, 5},
+				// { Personality.Transhumanism, 1},
+				{ Personality.NobileGoals, 3},
 			},
 			new Dictionary<Personality, int>{
-				{ Personality.Transhumanism, -2},
-				{ Personality.NobileGoals, -3},
+				// { Personality.Transhumanism, -2},
+				{ Personality.NobileGoals, -2},
 			}
 		));
 		addIfNotAlreadyInDbQuestions.Add(new Question("hourglass.jpg", "Want to live...", ">150 years", "<150 years",
 			new Dictionary<Personality, int>{
-				{ Personality.Transhumanism, 5},
+				// { Personality.Transhumanism, 5},
 				{ Personality.Expansion, 1},
 			},
 			new Dictionary<Personality, int>{
@@ -61,30 +61,32 @@ public partial class MainPage : ContentPage
 				{ Personality.Expansion, 5},
 			},
 			new Dictionary<Personality, int>{
-				{ Personality.Expansion, -1},
+				{ Personality.Expansion, -2},
 			}
 		));
 		addIfNotAlreadyInDbQuestions.Add(new Question("humanitarian.jpg", "Out to Help", "Activally Pursuing", "Doing my Own Thing",
 			new Dictionary<Personality, int>{
-				{ Personality.NobileGoals, 4},
+				{ Personality.NobileGoals, 3},
 			},
 			new Dictionary<Personality, int>{
-				{ Personality.NobileGoals, 0},
+				{ Personality.NobileGoals, -1},
 			}
 		));
 
-		// int i=0;
         foreach (Question addIfNotAlreadyInDbQuestion in addIfNotAlreadyInDbQuestions){
 			App.QuestionRepo.AddNewDbQuestion(addIfNotAlreadyInDbQuestion);
         }
 
 		questions = App.QuestionRepo.GetAllQuestions();
 
-		// moveNext(false);
-		// SwipeGestureRecognizer swipeGesture = new SwipeGestureRecognizer { Direction = SwipeDirection.Left | SwipeDirection.Right };
-		// swipeGesture.Swiped += OnSwiped;
+		Debug.WriteLine("questions__ "+questions.Count());
 
-		// SwipeArea.GestureRecognizers.Add(swipeGesture);
+		SwipeGestureRecognizer swipeGesture = new SwipeGestureRecognizer { Direction = SwipeDirection.Left | SwipeDirection.Right };
+		swipeGesture.Swiped += OnSwiped;
+
+		SwipeArea.GestureRecognizers.Add(swipeGesture);
+		
+		moveNext(false);
 	}
 
 	public void OnLeftSwipe(object sender, EventArgs e)
@@ -128,6 +130,7 @@ public partial class MainPage : ContentPage
 			foreach (var personality in left? questions[questionIndex].Option1PersonalitySet : questions[questionIndex].Option2PersonalitySet)
 			{
 				personalityTracking[personality.Key] += personality.Value;
+				Debug.WriteLine("__"+personality.Key+"__"+personality.Value);
 			}
 		}
 		
@@ -156,6 +159,11 @@ public partial class MainPage : ContentPage
 			new Result("house_of_suns.jpg", "The Gentian Line (Orignally Abigail Gentian)", "House of Suns", new Personality[]{ Personality.Expansion, Personality.Transhumanism, Personality.NobileGoals}),
 		];
 
+		Debug.WriteLine("-~<:{ As Dictonary Stored }:>~-");
+		Debug.WriteLine("Transhumanism: \t"+personalityTracking[Personality.Transhumanism]);
+		Debug.WriteLine("Expansion: \t"+personalityTracking[Personality.Expansion]);
+		Debug.WriteLine("NobileGoals: \t"+personalityTracking[Personality.NobileGoals]);
+
 
 		Personality[] checkPersonalityOrder = new Personality[personalityTracking.Count()];
 
@@ -168,18 +176,18 @@ public partial class MainPage : ContentPage
 		foreach(var personalityTracked in orderedPersonalityTracking){
 			checkPersonalityOrder[orderPlaceIndex++] = personalityTracked.Key;
 		}
-		Debug.WriteLine("Check Against");
+		Debug.WriteLine("-~<:{ Check Against }:>~-");
+		Debug.WriteLine("0\t "+checkPersonalityOrder[0]);
+		Debug.WriteLine("1\t "+checkPersonalityOrder[1]);
+		Debug.WriteLine("2\t "+checkPersonalityOrder[2]);
 
-		Debug.WriteLine(checkPersonalityOrder[0]);
-		Debug.WriteLine(checkPersonalityOrder[1]);
-		Debug.WriteLine(checkPersonalityOrder[2]);
 
-		Debug.WriteLine("Results");
+		Debug.WriteLine("-~<:{ Results }:>~-");
 		foreach(var result in results){
-		Debug.WriteLine("!!!!!!"+result.Title);
-		Debug.WriteLine(result.PersonalityOrder[0]);
-		Debug.WriteLine(result.PersonalityOrder[1]);
-		Debug.WriteLine(result.PersonalityOrder[2]);
+			Debug.WriteLine("Result Title: "+result.Title);
+			Debug.WriteLine("\t"+result.PersonalityOrder[0]);
+			Debug.WriteLine("\t"+result.PersonalityOrder[1]);
+			Debug.WriteLine("\t"+result.PersonalityOrder[2]);
 
 			if(result.CheckResultMatch(checkPersonalityOrder)){
 				QuestionImg.Source = result.DisplayImage;
