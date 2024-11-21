@@ -16,6 +16,7 @@ public static class MauiProgram
 			});
 
 		string dbPath = FileAccessHelper.GetLocalFilePath("questions.db3");
+
 		builder.Services.AddSingleton<QuestionRepository>(s => ActivatorUtilities.CreateInstance<QuestionRepository>(s, dbPath));
 
 

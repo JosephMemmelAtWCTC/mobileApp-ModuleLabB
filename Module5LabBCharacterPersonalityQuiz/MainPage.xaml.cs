@@ -37,6 +37,7 @@ public partial class MainPage : ContentPage
 
         List<Question> addIfNotAlreadyInDbQuestions = new List<Question>();
 
+		// Right now it only takes the first personality in the dictionary to work with the database object
 		addIfNotAlreadyInDbQuestions.Add(new Question("hourglass.jpg", "Longivitiy", "For expanded longivity", "Against expanded longivity",
 			new Dictionary<Personality, int>{
 				// { Personality.Transhumanism, 1},
@@ -49,19 +50,26 @@ public partial class MainPage : ContentPage
 		));
 		addIfNotAlreadyInDbQuestions.Add(new Question("hourglass.jpg", "Want to live...", ">150 years", "<150 years",
 			new Dictionary<Personality, int>{
-				// { Personality.Transhumanism, 5},
-				{ Personality.Expansion, 1},
+				{ Personality.Transhumanism, 6},
 			},
 			new Dictionary<Personality, int>{
-				{ Personality.Expansion, -1},
+				{ Personality.Transhumanism, -3},
 			}
 		));
 		addIfNotAlreadyInDbQuestions.Add(new Question("solar_system_map.jpg", "Travel Choice", "Off Earth", "On Earth",
 			new Dictionary<Personality, int>{
+				{ Personality.Expansion, 1},
+			},
+			new Dictionary<Personality, int>{
+				{ Personality.Expansion, -4},
+			}
+		));
+		addIfNotAlreadyInDbQuestions.Add(new Question("galaxy.jpg", "Explore", "Past the solar system", "Within the Solar system",
+			new Dictionary<Personality, int>{
 				{ Personality.Expansion, 5},
 			},
 			new Dictionary<Personality, int>{
-				{ Personality.Expansion, -2},
+				{ Personality.Expansion, -1},
 			}
 		));
 		addIfNotAlreadyInDbQuestions.Add(new Question("humanitarian.jpg", "Out to Help", "Activally Pursuing", "Doing my Own Thing",
@@ -69,7 +77,7 @@ public partial class MainPage : ContentPage
 				{ Personality.NobileGoals, 3},
 			},
 			new Dictionary<Personality, int>{
-				{ Personality.NobileGoals, -1},
+				{ Personality.NobileGoals, -2},
 			}
 		));
 
