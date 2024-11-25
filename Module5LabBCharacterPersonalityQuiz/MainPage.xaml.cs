@@ -64,7 +64,7 @@ public partial class MainPage : ContentPage
 				{ Personality.Expansion, -4},
 			}
 		));
-		addIfNotAlreadyInDbQuestions.Add(new Question("galaxy.jpg", "Explore", "Past the solar system", "Within the Solar system",
+		addIfNotAlreadyInDbQuestions.Add(new Question("galaxy.jpeg", "Explore", "Past the solar system", "Within the Solar system",
 			new Dictionary<Personality, int>{
 				{ Personality.Expansion, 5},
 			},

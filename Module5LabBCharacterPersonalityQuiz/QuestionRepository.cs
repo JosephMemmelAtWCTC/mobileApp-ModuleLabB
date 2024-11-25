@@ -88,9 +88,6 @@ public class QuestionRepository
         try
         {
             Init();
-            Debug.WriteLine("conn.Table<DbQuestion>().ToList().Count()");
-            Debug.WriteLine("conn.Table<DbQuestion>().ToList().Count() _"+conn.Table<DbQuestion>().ToList().Count());
-
             return conn.Table<DbQuestion>().ToList();
         }
         catch (Exception ex)
@@ -106,8 +103,6 @@ public class QuestionRepository
 
         List<DbQuestion> dbQuestionsFromDb = this.GetAllDbQuestions();
 
-        Debug.WriteLine("dbQuestionsFromDbdbQuestionsFromDb");
-        Debug.WriteLine("dbQuestionsFromDbdbQuestionsFromDb_"+dbQuestionsFromDb.Count());
         foreach(DbQuestion dbQuestion in dbQuestionsFromDb){
             questions.Add(new Question(
                 dbQuestion.DisplayImage,
