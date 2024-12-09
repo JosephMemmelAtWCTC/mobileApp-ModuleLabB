@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Microsoft.Maui.Controls.Platform;
 using Module5LabBCharacterPersonalityQuiz.Models;
 
 namespace Module5LabBCharacterPersonalityQuiz;
@@ -38,7 +39,7 @@ public partial class MainPage : ContentPage
         List<Question> addIfNotAlreadyInDbQuestions = new List<Question>();
 
 		// Right now it only takes the first personality in the dictionary to work with the database object
-		addIfNotAlreadyInDbQuestions.Add(new Question("hourglass.jpg", "Longivitiy", "For expanded longivity", "Against expanded longivity",
+		addIfNotAlreadyInDbQuestions.Add(new Question("hourglass.jpg", "An Emptying Hourglass", "Longivitiy", "For expanded longivity", "Against expanded longivity",
 			new Dictionary<Personality, int>{
 				// { Personality.Transhumanism, 1},
 				{ Personality.NobileGoals, 3},
@@ -48,7 +49,7 @@ public partial class MainPage : ContentPage
 				{ Personality.NobileGoals, -2},
 			}
 		));
-		addIfNotAlreadyInDbQuestions.Add(new Question("hourglass.jpg", "Want to live...", ">150 years", "<150 years",
+		addIfNotAlreadyInDbQuestions.Add(new Question("hourglass.jpg", "An emptying hourglass", "Want to live...", ">150 years", "<150 years",
 			new Dictionary<Personality, int>{
 				{ Personality.Transhumanism, 6},
 			},
@@ -56,7 +57,7 @@ public partial class MainPage : ContentPage
 				{ Personality.Transhumanism, -3},
 			}
 		));
-		addIfNotAlreadyInDbQuestions.Add(new Question("solar_system_map.jpg", "Travel Choice", "Off Earth", "On Earth",
+		addIfNotAlreadyInDbQuestions.Add(new Question("solar_system_map.jpg", "A Scroll with the solar system in the middle", "Travel Choice", "Off Earth", "On Earth",
 			new Dictionary<Personality, int>{
 				{ Personality.Expansion, 1},
 			},
@@ -64,7 +65,7 @@ public partial class MainPage : ContentPage
 				{ Personality.Expansion, -4},
 			}
 		));
-		addIfNotAlreadyInDbQuestions.Add(new Question("galaxy.jpg", "Explore", "Past the solar system", "Within the Solar system",
+		addIfNotAlreadyInDbQuestions.Add(new Question("galaxy.jpg", "Explore", "A picture of the galaxy", "Past the solar system", "Within the Solar system",
 			new Dictionary<Personality, int>{
 				{ Personality.Expansion, 5},
 			},
@@ -72,7 +73,7 @@ public partial class MainPage : ContentPage
 				{ Personality.Expansion, -1},
 			}
 		));
-		addIfNotAlreadyInDbQuestions.Add(new Question("humanitarian.jpg", "Out to Help", "Activally Pursuing", "Doing my Own Thing",
+		addIfNotAlreadyInDbQuestions.Add(new Question("humanitarian.jpg", "A box with the health + symbol with a parachute", "Out to Help", "Activally Pursuing", "Doing my Own Thing",
 			new Dictionary<Personality, int>{
 				{ Personality.NobileGoals, 3},
 			},
@@ -148,8 +149,12 @@ public partial class MainPage : ContentPage
 			QuestionTitle.Text = questions[questionIndex].QuestionTitle;
 			QuestionImg.Source = questions[questionIndex].DisplayImage;
 			OptionLeft.Text = questions[questionIndex].Option1Msg;
+			OptionLeft.SetValue(SemanticProperties.HintProperty, $"Choose the left option ${questions[questionIndex].Option1Msg}");
 			OptionRight.Text = questions[questionIndex].Option2Msg;
+			OptionLeft.SetValue(SemanticProperties.HintProperty, $"Choose the right option ${questions[questionIndex].Option2Msg}");
+			SemanticProperties.SetDescription(QuestionImg, questions[questionIndex].DisplayImageSemanticDescription);
 			Debug.WriteLine("!!!!!!"+questions[questionIndex].QuestionTitle);
+			Debug.WriteLine("Making sure the semantics are updated for the image: "+questions[questionIndex].DisplayImageSemanticDescription);
 		}else{
 			results();
 		}
@@ -159,12 +164,12 @@ public partial class MainPage : ContentPage
 	private void results(){
 		Result[] results = [
 			// string displayImage, string Title, string Description, Personality[] personalityOrder
-			new Result("we_are_legion.jpg", "(One of the many copies of Bob)", "From the Bobverse series", new Personality[]{ Personality.NobileGoals, Personality.Transhumanism, Personality.Expansion}),
-			new Result("attack_surface.jpg", "Masha Maximow", "Attack Surface", new Personality[]{ Personality.NobileGoals, Personality.Expansion, Personality.Transhumanism}),
-			new Result("mind_machines.jpg", "Mike Cohen", "Mind Machines (Humans++ series)", new Personality[]{ Personality.Transhumanism, Personality.NobileGoals, Personality.Expansion}),
-			new Result("house_of_suns.jpg", "The Spirit of the Air / Hesperus", "House of Suns", new Personality[]{ Personality.Transhumanism, Personality.Expansion, Personality.NobileGoals}),
-			new Result("the_hitchikers_guide_to_the_galaxy.jpg","Ford Perfect","The Hitchikers Guide to the Galaxy", new Personality[]{ Personality.Expansion, Personality.NobileGoals, Personality.Transhumanism}),
-			new Result("house_of_suns.jpg", "The Gentian Line (Orignally Abigail Gentian)", "House of Suns", new Personality[]{ Personality.Expansion, Personality.Transhumanism, Personality.NobileGoals}),
+			new Result("we_are_legion.jpg", "Book cover for we_are_legion. It shows a spaceship, astroids, and two projectiles heading towards the spaceship", "(One of the many copies of Bob)", "From the Bobverse series", new Personality[]{ Personality.NobileGoals, Personality.Transhumanism, Personality.Expansion}),
+			new Result("attack_surface.jpg", "Book cover for attack_surface. It shows a car surrounded by circit trace lines", "Masha Maximow", "Attack Surface", new Personality[]{ Personality.NobileGoals, Personality.Expansion, Personality.Transhumanism}),
+			new Result("mind_machines.jpg", "Book cover for mind_machines. It shows glowing circit tractes", "Mike Cohen", "Mind Machines (Humans++ series)", new Personality[]{ Personality.Transhumanism, Personality.NobileGoals, Personality.Expansion}),
+			new Result("house_of_suns.jpg", "Book cover for house_of_suns. It shows a bulbus spaceship over a plannet", "The Spirit of the Air / Hesperus", "House of Suns", new Personality[]{ Personality.Transhumanism, Personality.Expansion, Personality.NobileGoals}),
+			new Result("the_hitchikers_guide_to_the_galaxy.jpg", "Book cover for the_hitchikers_guide_to_the_galaxy. It shows an green alien", "Ford Perfect","The Hitchikers Guide to the Galaxy", new Personality[]{ Personality.Expansion, Personality.NobileGoals, Personality.Transhumanism}),
+			new Result("house_of_suns.jpg", "Book cover for house_of_suns. It shows a bulbus spaceship over a plannet", "The Gentian Line (Orignally Abigail Gentian)", "House of Suns", new Personality[]{ Personality.Expansion, Personality.Transhumanism, Personality.NobileGoals}),
 		];
 
 		Debug.WriteLine("-~<:{ As Dictonary Stored }:>~-");
@@ -199,6 +204,8 @@ public partial class MainPage : ContentPage
 
 			if(result.CheckResultMatch(checkPersonalityOrder)){
 				QuestionImg.Source = result.DisplayImage;
+				SemanticProperties.SetDescription(QuestionImg, result.DisplayImageDescription);
+				Console.WriteLine("Set the semantic description of the image to be \""+result.DisplayImageDescription+"\"");
 				QuestionTitle.Text = result.Title;
 				QuestionDescription.Text = result.Description;
 				OptionLeft.IsVisible = false;
@@ -207,8 +214,9 @@ public partial class MainPage : ContentPage
 			}
 		}
 
-		QuestionImg.Source = "dotnet_bot";
+		QuestionImg.Source = "dotnet_bot.png";
 		QuestionTitle.Text = "Sorry, but we don't have a result for that ordering, :(";
+		Console.WriteLine("Failed result img showing the default dotnet maui maskscot");
 		OptionLeft.IsVisible = false;
 		OptionRight.IsVisible = false;
 	}
@@ -222,7 +230,7 @@ public partial class MainPage : ContentPage
 			{ Personality.Expansion, 0},
 			{ Personality.NobileGoals, 0},
 		};
-		QuestionImg.Source = "dotnet_bot";
+		QuestionImg.Source = "dotnet_bot.png";
 		QuestionTitle.Text = "";
 		OptionLeft.IsVisible = true;
 		OptionRight.IsVisible = true;

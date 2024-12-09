@@ -35,6 +35,7 @@ public class QuestionRepository
     public void AddNewDbQuestion(Question question){
 		this.AddNewDbQuestion(
             question.DisplayImage,
+            question.DisplayImageSemanticDescription,
             question.QuestionTitle,
             question.Option1Msg,
             question.Option2Msg,
@@ -46,7 +47,7 @@ public class QuestionRepository
 
     }
 
-    public void AddNewDbQuestion(string displayImagePath, string questionTitle, string option1Msg, string option2Msg, Personality option1PersonalityKey, int option1PersonalityValue, Personality option2PersonalityKey, int option2PersonalityValue)
+    public void AddNewDbQuestion(string displayImagePath, string displayImageSemanticDescription, string questionTitle, string option1Msg, string option2Msg, Personality option1PersonalityKey, int option1PersonalityValue, Personality option2PersonalityKey, int option2PersonalityValue)
     {            
         int result = 0;
         try
@@ -65,6 +66,7 @@ public class QuestionRepository
 
             result = conn.Insert(new DbQuestion {
 				DisplayImage = displayImagePath,
+                DisplayImageSemanticDescription = displayImageSemanticDescription,
 				QuestionTitle = questionTitle,
 				Option1Msg = option1Msg,
 				Option2Msg = option2Msg,
@@ -106,6 +108,7 @@ public class QuestionRepository
         foreach(DbQuestion dbQuestion in dbQuestionsFromDb){
             questions.Add(new Question(
                 dbQuestion.DisplayImage,
+                dbQuestion.DisplayImageSemanticDescription,
                 dbQuestion.QuestionTitle,
                 dbQuestion.Option1Msg,
                 dbQuestion.Option2Msg,

@@ -8,6 +8,9 @@ public class Result
     public string DisplayImage { get; set; }
 
     [Required]
+    public string DisplayImageDescription { get; set; }
+
+    [Required]
     public string Title { get; set; }
     
     [Required]
@@ -16,8 +19,9 @@ public class Result
     [Required]
     public Personality[] PersonalityOrder;
 
-    public Result(string displayImage, string Title, string Description, Personality[] personalityOrder){
+    public Result(string displayImage, string displayImageDescription, string Title, string Description, Personality[] personalityOrder){
         this.DisplayImage = displayImage;
+        this.DisplayImageDescription = displayImageDescription;
         this.Title = Title;
         this.Description = Description;
         this.PersonalityOrder = personalityOrder;

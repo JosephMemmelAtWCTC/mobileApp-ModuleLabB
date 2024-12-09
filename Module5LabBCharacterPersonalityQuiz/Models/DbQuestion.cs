@@ -11,6 +11,7 @@ namespace Module5LabBCharacterPersonalityQuiz.Models
 
         // [MinLength(3)]
         public string DisplayImage { get; set; }
+        public string DisplayImageSemanticDescription { get; set; }
 
         [MaxLength(250)]
 

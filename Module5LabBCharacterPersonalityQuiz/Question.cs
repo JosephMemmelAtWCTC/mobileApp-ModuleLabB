@@ -8,6 +8,9 @@ public class Question
     public string DisplayImage { get; set; }
 
     [Required]
+    public string DisplayImageSemanticDescription { get; set; }
+
+    [Required]
     public string QuestionTitle { get; set; }
     
     [Required]
@@ -21,8 +24,9 @@ public class Question
     public Dictionary<Personality, int> Option2PersonalitySet { get; set; }
     
 
-    public Question(string displayImage, string questionTitle, string option1Msg, string option2Msg, Dictionary<Personality, int> option1PersonalitySet, Dictionary<Personality, int> option2PersonalitySet){
+    public Question(string displayImage, string displayImageSemanticDescription, string questionTitle, string option1Msg, string option2Msg, Dictionary<Personality, int> option1PersonalitySet, Dictionary<Personality, int> option2PersonalitySet){
         this.DisplayImage = displayImage;
+        this.DisplayImageSemanticDescription = displayImageSemanticDescription;
         this.QuestionTitle = questionTitle;
         this.Option1Msg = option1Msg;
         this.Option2Msg = option2Msg;

@@ -14,27 +14,25 @@
                 <Label
                     Text="Sci-fi Character Personality Quiz"
                     Style="{StaticResource Headline}"
-                    SemanticProperties.HeadingLevel="Level1" />
+                    SemanticProperties.HeadingLevel="Level1"/>
 
                 <Image
                     x:Name="QuestionImg"
                     Source="dotnet_bot.png"
                     HeightRequest="185"
                     Aspect="AspectFit"
-                    SemanticProperties.Description="" />
+                    SemanticProperties.Description="Image loading" />
 
                 <Label
                     x:Name="QuestionTitle"
                     Text="Title"
                     Style="{StaticResource SubHeadline}"
-                    SemanticProperties.HeadingLevel="Level2"
-                    SemanticProperties.Description="" />
+                    SemanticProperties.HeadingLevel="Level2"/>
                 <Label
                     x:Name="QuestionDescription"
                     Text="Click or swipe twords the description buttons to select"
                     Style="{StaticResource SubHeadline}"
-                    SemanticProperties.HeadingLevel="Level2"
-                    SemanticProperties.Description="" />
+                    SemanticProperties.HeadingLevel="Level2"/>
 
                 <!-- Options Layout -->
                 <Grid
@@ -44,16 +42,18 @@
                         x:Name="OptionLeft"
                         Clicked="OnLeftSwipe"
                         Text="LEFT" 
-                        SemanticProperties.Hint=""
+                        SemanticProperties.Hint="The left option"
                         Grid.Column="0"
                         HorizontalOptions="StartAndExpand" />
+                        <!-- The hint is reset set in code per question -->
                     <Button
                         x:Name="OptionRight"
                         Clicked="OnRightSwipe"
                         Text="RIGHT" 
-                        SemanticProperties.Hint=""
+                        SemanticProperties.Hint="The right option"
                         Grid.Column="1"
                         HorizontalOptions="EndAndExpand" />
+                        <!-- The hint is reset set in code per question -->
                 </Grid>
 
             </VerticalStackLayout>
