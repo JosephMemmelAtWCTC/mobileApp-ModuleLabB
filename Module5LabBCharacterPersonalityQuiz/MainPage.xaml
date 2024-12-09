@@ -64,7 +64,7 @@
         <Button
             x:Name="Reset"
             Text="Reset" 
-            SemanticProperties.Hint=""
+            SemanticProperties.Hint="Reset the quiz to the start to take the questions all again"
             Clicked="OnResetQuiz"
             Grid.Row="1"
             HorizontalOptions="Fill"
