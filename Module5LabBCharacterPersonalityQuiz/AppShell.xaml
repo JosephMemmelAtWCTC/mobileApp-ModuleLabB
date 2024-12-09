@@ -8,7 +8,6 @@
     Title="Module5LabBCharacterPersonalityQuiz">
 
     <ShellContent
-        Title="Personality Quiz!"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
